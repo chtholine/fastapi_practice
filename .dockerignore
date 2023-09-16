@@ -1,0 +1,9 @@
+# Ignore all
+**
+
+# Exclude
+!app
+!tests
+!Makefile
+!requirements.txt
+!docker
