@@ -1,5 +1,17 @@
+# web framework
 fastapi==0.103.1
+# asgi server
 uvicorn[standard]==0.23.2
+# data validation using type hints
 pydantic==2.3.0
 pydantic-settings==2.0.3
+# db packages
+asyncpg==0.28.0
+psycopg2-binary==2.9.7
+redis==5.0.0
+SQLAlchemy==2.0.20
+# formating and style checking
 ruff==0.0.290
+# testing
+pytest==7.4.2
+httpx==0.25.0
