@@ -18,16 +18,11 @@ COPY --chown=${USER} requirements.txt requirements.txt
 RUN pip install --upgrade pip && \
     pip install --requirement requirements.txt
 
-COPY --chown=${USER} --chmod=755 ./docker/app/start.sh /start.sh
-
 COPY --chown=${USER} ./app app
 COPY --chown=${USER} ./tests tests
-COPY --chown=${USER} ./Makefile Makefile
 
 USER ${USER}
 
 EXPOSE 8000
 
-CMD ["/start.sh"]
-
-CMD ["pytest", "./tests/test_main.py"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
