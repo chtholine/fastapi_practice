@@ -4,6 +4,4 @@
 # Exclude
 !app
 !tests
-!Makefile
 !requirements.txt
-!docker
