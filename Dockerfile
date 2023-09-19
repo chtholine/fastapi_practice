@@ -27,5 +27,4 @@ USER ${USER}
 
 EXPOSE 8000
 
-# Command to run the FastAPI server in the background
 ENTRYPOINT ["/entrypoint.sh"]
