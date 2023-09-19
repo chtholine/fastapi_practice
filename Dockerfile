@@ -1,30 +1,17 @@
 FROM python:3.11.4
 
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE 1
-
-ARG WORKDIR=/wd
-ARG USER=user
-
-WORKDIR ${WORKDIR}
-
-RUN useradd --system ${USER} && \
-    chown --recursive ${USER} ${WORKDIR}
+WORKDIR /wd
 
 RUN apt update && apt upgrade -y
 
-COPY --chown=${USER} requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 
 RUN pip install --upgrade pip && \
     pip install --requirement requirements.txt
 
-COPY --chown=${USER} ./app app
-COPY --chown=${USER} ./tests tests
-
-COPY --chown=${USER} --chmod=755 ./docker/entrypoint.sh /entrypoint.sh
-
-USER ${USER}
+COPY ./app app
+COPY ./tests tests
 
 EXPOSE 8000
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
