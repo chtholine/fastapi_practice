@@ -3,6 +3,7 @@
 
 # Exclude
 !app
+!docker
 !tests
 !requirements.txt
 !.env
