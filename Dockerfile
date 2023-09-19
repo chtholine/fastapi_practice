@@ -21,8 +21,11 @@ RUN pip install --upgrade pip && \
 COPY --chown=${USER} ./app app
 COPY --chown=${USER} ./tests tests
 
+COPY --chown=${USER} --chmod=755 ./docker/entrypoint.sh /entrypoint.sh
+
 USER ${USER}
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload & pytest ./tests/test_main.py ; tail -f /dev/null"]
+# Command to run the FastAPI server in the background
+ENTRYPOINT ["/entrypoint.sh"]
