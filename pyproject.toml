@@ -4,10 +4,11 @@ target-version = "py311"
 show-fixes = true
 
 select = [
-  "E",   # pycodestyle
-  "F",   # pyflakes
-  "UP",  # pyupgrade,
-  "I",   # isort
+    "W",
+    "E", # pycodestyle
+    "F", # pyflakes
+    "UP", # pyupgrade,
+    "I", # isort
 ]
 
 exclude = [
