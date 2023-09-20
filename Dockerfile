@@ -10,7 +10,6 @@ RUN pip install --upgrade pip && \
     pip install --requirement requirements.txt
 
 COPY ./app app
-COPY ./tests tests
 
 EXPOSE 8000
 
