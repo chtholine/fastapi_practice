@@ -13,4 +13,4 @@ RUN pip install --upgrade pip && \
 COPY ./app app
 COPY ./tests tests
 
-CMD ["pytest", "./tests/test_main.py"]
+CMD ["pytest"]
