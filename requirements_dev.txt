@@ -1,7 +1,7 @@
+# core rquirements
+-r requirements.txt
 # formating and style checking
 ruff==0.0.290
 # testing
 pytest==7.4.2
 httpx==0.25.0
-# web framework
-fastapi==0.103.1
