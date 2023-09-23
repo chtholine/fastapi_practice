@@ -1,0 +1,51 @@
+version: '3.9'
+volumes:
+  postgres_data: { }
+  redis_data: { }
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    profiles:
+      - app
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    profiles:
+      - tests
+
+  postgres:
+    image: postgres:16
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:rw
+    env_file:
+      - .env
+    profiles:
+      - tests
+      - app
+
+  redis:
+    image: redis:7.2.1
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/var/lib/redis/data:rw
+    profiles:
+      - tests
+      - app
