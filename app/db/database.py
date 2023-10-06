@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from app.db.models import Base
 
 from app.core.config import settings
+from app.db.models import Base
 
 engine = create_async_engine(settings.POSTGRES_URL, echo=True)
 async_session = async_sessionmaker(

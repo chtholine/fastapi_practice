@@ -3,7 +3,7 @@ from redis import asyncio as aioredis
 from app.core.config import settings
 
 pool = aioredis.ConnectionPool(
-    host="redis",
+    host=settings.REDIS_HOST,
     port=settings.REDIS_PORT,
     db=0
 )
