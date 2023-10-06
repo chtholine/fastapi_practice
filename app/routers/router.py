@@ -1,19 +1,15 @@
 from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+from redis import asyncio as aioredis
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from redis import asyncio as aioredis
-from app.core.config import Settings
+
 from app.db.database import get_session
 from app.db.models import UserData
+from app.services.redis_service import get_redis
 
 router = APIRouter()
-
-
-async def get_redis():
-    return await aioredis.from_url(
-        Settings.REDIS_URL
-    )
 
 
 class UserSchema(BaseModel):
@@ -63,3 +59,18 @@ async def read_users(session: AsyncSession = Depends(get_session)):
     result = await session.execute(select(UserData))
     users = result.scalars().all()
     return {"users": users}
+
+
+@router.get("/test-redis/")
+async def test_redis():
+    try:
+        redis = await get_redis()
+        await redis.ping()
+        await redis.close()
+        return JSONResponse(content={
+            "message": "Redis connection is successful."
+        })
+    except aioredis.RedisError as e:
+        return JSONResponse(content={
+            "message": f"Redis connection failed: {str(e)}."
+        })

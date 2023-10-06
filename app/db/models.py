@@ -1,9 +1,11 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, func, TIMESTAMP
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy import TIMESTAMP
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 
-from app.db.database import Base
+
+class Base(DeclarativeBase):
+    pass
 
 
 class UserData(Base):
@@ -22,4 +24,3 @@ class UserData(Base):
     is_superuser: Mapped[bool] = mapped_column(nullable=True)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)
-

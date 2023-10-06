@@ -18,9 +18,7 @@ class Settings:
     POSTGRES_DB: str = os.getenv("POSTGRES_DB")
     POSTGRES_URL = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-    REDIS_DB: str = os.getenv("REDIS_DB")
-    REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD")
-    REDIS_URL: str = os.getenv("REDIS_URL")
+    REDIS_PORT: str = os.getenv("REDIS_PORT")
 
 
 settings = Settings()
