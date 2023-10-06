@@ -5,7 +5,7 @@ from app.core.config import settings
 pool = aioredis.ConnectionPool(
     host=settings.REDIS_HOST,
     port=settings.REDIS_PORT,
-    db=0
+    db=settings.REDIS_DB
 )
 
 
