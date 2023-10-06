@@ -8,12 +8,6 @@ app = FastAPI()
 
 app.include_router(router)
 
-
-@app.on_event("startup")
-async def on_startup():
-    await init_models()
-
-
 origins = [
     "http://localhost",
     "http://localhost:8000",
@@ -28,3 +22,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def on_startup():
+    await init_models()
