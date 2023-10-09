@@ -15,6 +15,6 @@ async def init_models():
 
 
 # Dependency
-async def get_session() -> AsyncSession:
+async def get_postgres() -> AsyncSession:
     async with async_session() as session:
         yield session
