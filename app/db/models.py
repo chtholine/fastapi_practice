@@ -8,8 +8,8 @@ class Base(DeclarativeBase):
     pass
 
 
-class UserData(Base):
-    __tablename__ = "user_data"
+class Users(Base):
+    __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_email: Mapped[str] = mapped_column(unique=True, index=True, nullable=False)

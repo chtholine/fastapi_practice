@@ -1,28 +1,17 @@
+import asyncio
+
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 from redis import asyncio as aioredis
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from app.db.database import get_session
-from app.db.models import UserData
+from app.db.database import get_postgres
+from app.db.models import Users
+from app.schemas.schemas import UserSchema
 from app.services.redis_service import get_redis
 
 router = APIRouter()
-
-
-class UserSchema(BaseModel):
-    user_email: str
-    user_firstname: str
-    user_lastname: str
-    user_status: str
-    user_city: str
-    user_phone: str
-    user_links: str
-    user_avatar: str
-    hashed_password: str
-    is_superuser: bool
 
 
 @router.get("/")
@@ -35,8 +24,8 @@ async def healthcheck():
 
 
 @router.post("/users/")
-async def create_user(user_data: UserSchema, session: AsyncSession = Depends(get_session)):
-    new_user = UserData(
+async def create_user(user_data: UserSchema, session: AsyncSession = Depends(get_postgres)):
+    new_user = Users(
         user_email=user_data.user_email,
         user_firstname=user_data.user_firstname,
         user_lastname=user_data.user_lastname,
@@ -55,8 +44,8 @@ async def create_user(user_data: UserSchema, session: AsyncSession = Depends(get
 
 
 @router.get("/users/")
-async def read_users(session: AsyncSession = Depends(get_session)):
-    result = await session.execute(select(UserData))
+async def read_users(session: AsyncSession = Depends(get_postgres)):
+    result = await session.execute(select(Users))
     users = result.scalars().all()
     return {"users": users}
 
@@ -73,4 +62,18 @@ async def test_redis():
     except aioredis.RedisError as e:
         return JSONResponse(content={
             "message": f"Redis connection failed: {str(e)}."
+        })
+
+
+@router.get("/test-postgres/")
+async def test_postgres(session: AsyncSession = Depends(get_postgres)):
+    try:
+        result = await session.execute(select(1))
+        result.scalar()
+        return JSONResponse(content={
+            "message": "PostgreSQL connection is successful."
+        })
+    except Exception as e:
+        return JSONResponse(content={
+            "message": f"PostgreSQL connection failed: {str(e)}."
         })
