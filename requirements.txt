@@ -1,12 +1,15 @@
 # web framework
-fastapi==0.103.1
+fastapi==0.103.2
 # asgi server
 uvicorn[standard]==0.23.2
 # data validation using type hints
-pydantic==2.3.0
+pydantic==2.4.2
 pydantic-settings==2.0.3
 # db packages
 asyncpg==0.28.0
-psycopg2-binary==2.9.7
-redis==5.0.0
+psycopg2-binary==2.9.9
+redis==5.0.1
 SQLAlchemy==2.0.21
+alembic==1.12.0
+# env
+python-dotenv~=1.0.0
