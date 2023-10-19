@@ -18,6 +18,8 @@ services:
       - app
     ports:
       - "8000:8000"
+    volumes:
+      - .:/wd
 
   test:
     container_name: "test"
