@@ -3,12 +3,12 @@
 ### Getting Started
 #### Run using Docker
 * Run app 
-  * Build the app container: <code> docker build -t fastapi-app -f Dockerfile .</code>
-  * Run the app container: <code>docker run -p 8000:8000 fastapi-app</code>
+  * Build the app container: `docker build -t fastapi-app -f Dockerfile .`
+  * Run the app container: `docker run -p 8000:8000 fastapi-app`
 
 * Run tests
-  - Build the test container: <code> docker build -t fastapi-test -f Dockerfile.test .</code>
-  - Run the test container: <code>docker run --rm fastapi-test</code>
+  - Build the test container: `docker build -t fastapi-test -f Dockerfile.test .`
+  - Run the test container: `docker run --rm fastapi-test`
 
 #### Run using Make
 * Run app | `make run-app`
