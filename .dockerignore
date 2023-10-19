@@ -3,7 +3,9 @@
 
 # Exclude
 !app
+!migrations
 !tests
 !requirements.txt
 !requirements_dev.txt
 !.env
+!alembic.ini
