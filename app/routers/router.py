@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from app.db.database import get_postgres
-from app.db.models import Users
+from app.db.models import User
 from app.schemas.schemas import UserSchema
 from app.services.redis_service import get_redis
 from app.utils.logger_conf import logger
@@ -26,7 +26,7 @@ async def healthcheck():
 async def create_user(user_data: UserSchema, session: AsyncSession = Depends(get_postgres)):
     try:
         logger.info("Creating a new user")
-        new_user = Users(
+        new_user = User(
             user_email=user_data.user_email,
             user_firstname=user_data.user_firstname,
             user_lastname=user_data.user_lastname,
@@ -52,7 +52,7 @@ async def create_user(user_data: UserSchema, session: AsyncSession = Depends(get
 async def read_users(session: AsyncSession = Depends(get_postgres)):
     try:
         logger.info("Fetching user data")
-        result = await session.execute(select(Users))
+        result = await session.execute(select(User))
         users = result.scalars().all()
         logger.info("User data successfully fetched")
         return {"users": users}
