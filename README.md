@@ -12,7 +12,7 @@
 
 #### Run using Make
 * Run app | `make run-app`
-* Run tests | `make run-test`
+* Run tests | `make run-tests`
 * Purge | `make purge`
 * Available commands | `make help`
 ### Data Base
