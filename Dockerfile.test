@@ -1,0 +1,16 @@
+FROM python:3.11.4
+
+WORKDIR /wd
+
+RUN apt update && apt upgrade -y
+
+COPY requirements.txt requirements.txt
+COPY requirements_dev.txt requirements_dev.txt
+
+RUN pip install --upgrade pip && \
+    pip install -r requirements_dev.txt
+
+COPY ./app app
+COPY ./tests tests
+
+CMD ["pytest"]
